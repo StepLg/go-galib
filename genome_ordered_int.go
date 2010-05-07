@@ -123,7 +123,7 @@ func (g *GAOrderedIntGenome) Len() int { return len(g.Gene) }
 
 func (g *GAOrderedIntGenome) Score() int {
 	if !g.hasscore {
-		g.score = g.sfunc(&g)
+		g.score = g.sfunc(g)
 		g.hasscore = true
 	}
 	return int(g.score)
