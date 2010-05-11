@@ -56,7 +56,7 @@ func main() {
 	genome := ga.NewFloatGenome(make([]float64, 20), rosenbrock, 1, -1)
 	gao.Init(100, genome) //Total population
 	for {
-		gao.Optimize(100) // Run genetic algorithm for 20 generations.
+		ga.OptimizeNgenerations(gao, 100) // Run genetic algorithm for 20 generations.
 		best := gao.Best().(*ga.GAFloatGenome)
 		fmt.Printf("%s = %f\n", best, best.Score())
 	}

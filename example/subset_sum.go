@@ -54,7 +54,7 @@ func main() {
 	genome := ga.NewFixedBitstringGenome(make([]bool, len(theset)), score)
 	gao.Init(50, genome) //Total population
 	for {
-		gao.Optimize(1) // Run genetic algorithm for 20 generations.
+		gao.RunGeneration() // One generation of ga
 		best := gao.Best().(*ga.GAFixedBitstringGenome)
 		sum := 0
 		if best.Score() == 0 {

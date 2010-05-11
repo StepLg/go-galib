@@ -48,7 +48,7 @@ func main() {
 	genome := ga.NewOrderedIntGenome([]int{10, 11, 12, 13, 14, 15, 16, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0}, score)
 	gao.Init(200, genome) //Total population
 
-	gao.Optimize(20) // Run genetic algorithm for 20 generations.
+	ga.OptimizeNgenerations(gao, 20) // Run genetic algorithm for 20 generations.
 	gao.PrintTop(10)
 	fmt.Printf("Calls to score = %d\n", scores);
 	fmt.Printf("%s\n", m.Stats())
