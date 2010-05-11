@@ -110,3 +110,11 @@ func OptimizeNgenerations(ga *GA, generationsCnt uint) {
 		ga.RunGeneration()
 	}
 }
+
+func OptimizeBest(ga *GA, stopFunc func (bestGenome GAGenome) bool, maxGenerations int) int {
+	i := 0
+	for i=0; (maxGenerations<0 || i<maxGenerations) && !stopFunc(ga.Best()); i++ {
+		ga.RunGeneration()
+	}
+	return i
+}

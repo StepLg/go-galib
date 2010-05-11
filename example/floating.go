@@ -33,6 +33,7 @@ func ackley(g *ga.GAFloatGenome) float64 {
 }
 
 func rosenbrock(g *ga.GAFloatGenome) float64 {
+	scores++
 	var sum float64
 	for i := 1; i < len(g.Gene); i++ {
 		sum += 100.0*math.Pow(math.Pow(g.Gene[i]-g.Gene[i-1], 2), 2) + math.Pow(1-g.Gene[i-1], 2)
@@ -55,10 +56,18 @@ func main() {
 	fmt.Printf("%s\n", gao)
 	genome := ga.NewFloatGenome(make([]float64, 20), rosenbrock, 1, -1)
 	gao.Init(100, genome) //Total population
+	stopFunc := func(bestGenome ga.GAGenome) bool {
+		return bestGenome.Score()<=1e-2
+	}
+	generations := ga.OptimizeBest(gao, stopFunc, 1000) // Run genetic algorithm for 20 generations.
+	/**
 	for {
 		ga.OptimizeNgenerations(gao, 100) // Run genetic algorithm for 20 generations.
 		best := gao.Best().(*ga.GAFloatGenome)
 		fmt.Printf("%s = %f\n", best, best.Score())
 	}
+	*/
+	fmt.Printf("%s = %f\n", gao.Best(), gao.Best().Score())
+	fmt.Printf("Number of generations = %d\n", generations)
 	fmt.Printf("Calls to score = %d\n", scores)
 }
