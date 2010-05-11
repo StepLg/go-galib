@@ -27,7 +27,7 @@ type GA struct {
 
 	popsize int
 	
-	generationsCnt int
+	generationsCnt int // total generations since ga initialization
 }
 
 func NewGA(i GAInitializer, s GASelector, m GAMutator, b GABreeder) *GA {
@@ -105,12 +105,16 @@ func (ga *GA) PrintPop() {
 	}
 }
 
+// Run genetic algorithm with exactly generationsCnt generations
 func OptimizeNgenerations(ga *GA, generationsCnt uint) {
 	for i:=uint(0); i<generationsCnt; i++ {
 		ga.RunGeneration()
 	}
 }
 
+// Run genetic algorithm while not stopFunc with maximum maxGenerations generations
+//
+// stopFunc get best genome of each generation and returns whether or not continue optimizing
 func OptimizeBest(ga *GA, stopFunc func (bestGenome GAGenome) bool, maxGenerations int) int {
 	i := 0
 	for i=0; (maxGenerations<0 || i<maxGenerations) && !stopFunc(ga.Best()); i++ {
